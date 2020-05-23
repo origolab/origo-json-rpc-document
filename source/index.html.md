@@ -650,6 +650,82 @@ transactions | Array  |Array of transaction objects, or 32 Bytes transaction has
 uncles |Array | Array of uncle hashes
 
 
+## Get Block by Number
+
+```shell
+curl --data '{"method":"eth_getBlockByNumber","params":["0x1b4",true],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST  https://rpc.origo.network 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "number": "0x1b4", // 436
+    "hash": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
+    "parentHash": "0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5",
+    "sealFields": [
+      "0xe04d296d2460cfb8472af2c5fd05b5a214109c25688d3704aed5484f9a7792f2",
+      "0x0000000000000042"
+    ],
+    "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+    "logsBloom": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
+    "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    "stateRoot": "0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff",
+    "miner": "0x4e65fda2159562a496f9f3522f89122a3088497a",
+    "difficulty": "0x27f07", // 163591
+    "totalDifficulty": "0x27f07", // 163591
+    "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "size": "0x27f07", // 163591
+    "gasLimit": "0x9f759", // 653145
+    "minGasPrice": "0x9f759", // 653145
+    "gasUsed": "0x9f759", // 653145
+    "timestamp": "0x54e34e8e", // 1424182926
+    "transactions": [{ ... }, { ... }, ...],
+    "uncles": [
+      "0x1606e5...",
+      "0xd5145a9..."
+    ]
+  }
+}
+```
+
+Returns information about a block by block number.
+
+### Query Parameters
+Parameter | Type | Description
+--------- | ------- | -----------
+1 | Quantity or Tag | Integer of a block number, or the string 'earliest', 'latest' or 'pending'.
+2 | Boolean|  If true it returns the full transaction objects, if false only the hashes of the transactions.
+
+
+### Response Parameters
+
+Parameter | Type | Description
+--------- | ------- | -----------
+number| Quantity |The block number. null when its pending block
+hash |Hash  | 32 Bytes - hash of the block. null when its pending block
+parentHash | Hash  |32 Bytes - hash of the parent block
+nonce | Data | 8 Bytes - hash of the generated proof-of-work. null when its pending block. Missing in case of PoA.
+sha3Uncles |Data  | 32 Bytes - SHA3 of the uncles data in the block
+logsBloom | Data | 256 Bytes - the bloom filter for the logs of the block. null when its pending block
+transactionsRoot | Data  | 32 Bytes - the root of the transaction trie of the block
+stateRoot | Data  |32 Bytes - the root of the final state trie of the block
+receiptsRoot |Data  |32 Bytes - the root of the receipts trie of the block
+author | Address  | 20 Bytes - the address of the author of the block (the beneficiary to whom the mining rewards were given)
+miner |Address  | 20 Bytes - alias of ‘author’
+difficulty |Quantity | integer of the difficulty for this block
+totalDifficulty | Quantity  | integer of the total difficulty of the chain until this block
+extraData | Data  | the ‘extra data’ field of this block
+size |Quantity  |integer the size of this block in bytes
+gasLimit |Quantity  |the maximum gas allowed in this block
+gasUsed | Quantity | the total used gas by all transactions in this block
+timestamp | Quantity  | the unix timestamp for when the block was collated
+transactions | Array  |Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter
+uncles |Array | Array of uncle hashes
+
 ## Get Last Block Number
 
 ```shell
